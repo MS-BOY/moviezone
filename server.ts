@@ -4,12 +4,14 @@ import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 const PORT = 3000;
 
 // MongoDB Connection
@@ -114,7 +116,7 @@ app.get("/api/health", (req, res) => {
 
 // GET SITEMAP XML
 app.get("/sitemap.xml", async (req, res) => {
-  const host = process.env.APP_URL || `http://localhost:${PORT}`;
+  const host = "https://moviezone-9ogo.onrender.com";
   const movies = await readMoviesAsync();
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
@@ -595,6 +597,10 @@ async function startServer() {
       }
     });
 
+    app.all("/api/*", (req, res) => {
+      res.status(404).json({ error: "API Route Not Found" });
+    });
+
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
@@ -621,6 +627,10 @@ async function startServer() {
       } catch (err) {
         next(err);
       }
+    });
+
+    app.all("/api/*", (req, res) => {
+      res.status(404).json({ error: "API Route Not Found" });
     });
 
     app.use(express.static(distPath));
