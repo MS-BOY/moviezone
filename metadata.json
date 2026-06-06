@@ -1,0 +1,8 @@
+{
+  "name": "CineGlass",
+  "description": "Modern movie posting platform featuring a premium 3D glassmorphism UI inspired by iOS design, along with server-side SEO, dynamic Open Graph, sitemaps, and watchlist.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

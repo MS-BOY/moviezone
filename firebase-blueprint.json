@@ -1,0 +1,127 @@
+{
+  "entities": {
+    "Review": {
+      "title": "Review",
+      "description": "User review for a specific film post",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the review"
+        },
+        "user": {
+          "type": "string",
+          "description": "Username of the reviewer"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Numeric rating out of 5"
+        },
+        "content": {
+          "type": "string",
+          "description": "The textual content of the review"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp when the review was written"
+        }
+      },
+      "required": ["id", "user", "rating", "createdAt"]
+    },
+    "Movie": {
+      "title": "Movie",
+      "description": "A high-fidelity film post with SEO metadata",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the film post"
+        },
+        "title": {
+          "type": "string",
+          "description": "Movie Title"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Unique URL-friendly slug"
+        },
+        "description": {
+          "type": "string",
+          "description": "Full synopsis of the film"
+        },
+        "poster": {
+          "type": "string",
+          "description": "URL of the poster image"
+        },
+        "backdrop": {
+          "type": "string",
+          "description": "URL of the high-res backdrop banner"
+        },
+        "videoUrl": {
+          "type": "string",
+          "description": "Direct or play link to the video trailer"
+        },
+        "category": {
+          "type": "string",
+          "description": "Genre category"
+        },
+        "year": {
+          "type": "integer",
+          "description": "Release year of the film"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Average review score out of 5"
+        },
+        "votes": {
+          "type": "integer",
+          "description": "Total rating count"
+        },
+        "director": {
+          "type": "string"
+        },
+        "cast": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "duration": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "trending": {
+          "type": "boolean"
+        },
+        "seoTitle": {
+          "type": "string"
+        },
+        "seoDescription": {
+          "type": "string"
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Review"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "title", "slug", "description", "videoUrl", "category", "year", "createdAt"]
+    }
+  },
+  "firestore": {
+    "movies/{movieId}": {
+      "schema": "Movie",
+      "description": "Collection of all movies published in the system"
+    }
+  }
+}
